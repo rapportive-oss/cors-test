@@ -1,0 +1,16 @@
+application: test-cors
+version: 1
+runtime: python
+api_version: 1
+
+default_expiration: "1d"
+
+handlers:
+
+- url: /
+  static_files: index.html
+  upload: index.html
+
+- url: /simple.json
+  static_files: simple.json
+  upload: simple.json

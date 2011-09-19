@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+        <title>Test CORS support</title>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+
+        <script>
+            var technical = window.location.hash === "#technical";
+
+            function logged(msg, opts) {
+                var li = jQuery("<li>").text(technical ? msg : 'testing...').appendTo(jQuery(".results")).addClass("unknown"),
+                    d = jQuery.ajax(opts)
+                             .done(function () {
+                                 li.addClass("good");
+                                 li.text((technical ?  msg : 'passed') + ' ✓');
+                             })
+                             .fail(function () {
+                                 li.addClass("bad");
+                                 li.text((technical ?  msg : 'failed') + ' ✗');
+                             });
+
+                    setTimeout(function () {
+                        if (!d.isResolved()) {
+                            li.text(technical ? "timed out" : "not tested :(");
+                        }
+                    }, 10000);
+            }
+
+            jQuery(function () {
+
+                if (technical) {
+                    jQuery(".friendly").hide();
+                    jQuery(".technical").show();
+                }
+
+                var url = "https://cors-test.appspot.com/test";
+
+                jQuery(".useragent").text(navigator.userAgent);
+
+                logged("Simple local ajax", "simple.json");
+
+                logged("remote GET request", url);
+
+                logged("remote POST request", {url: url, type: 'POST'});
+
+                logged("remote DELETE request", {url: url, type: 'DELETE'});
+
+                logged("remote request with Header", {url: url, headers: {'X-Test-Header': 'test'}});
+
+                logged("remote request with credentials", {url: url, xhrFields: {withCredentials: true}});
+
+                logged("with HTTP basic auth", {url: url, username: 'foo', password: 'bar', xhrFields: {withCredentials: true}});
+
+                logged("all features combined", {url: url, type: 'HEAD', headers: {'X-Test-Header': 'test'}, xhrFields: {withCredentials: true}});
+            });
+        </script>
+
+        <style>
+            body{ font-family: sans-serif; }
+            .unknown{ color: #888; }
+            .good{ color: #080; }
+            .bad{ color: #800; }
+            .technical{ display: none }
+        </style>
+    </head>
+
+    <body>
+        <p class="useragent"></p>
+        <ol class="results"></ol>
+        <hr/>
+
+        <p class="technical">For a less technical view please see <a
+            href="javascript:window.open('https://test-cors.appspot.com/#friendly')">https://test-cors.appspot.com/#friendly</a>.</p>
+
+        <p class="technical">This test suite makes requests to <a href="https://cors-test.appspot.com/">https://cors-test.appspot.com/</a>, see that page
+        for implementation details. The code is on github at <a href="https://github.com/rapportive-oss/cors-test">https://github.com/rapportive-oss/cors-test</a></p>
+
+        <p>CORS testing service provided by <a href="http://rapportive.com">Rapportive</a>, contact <a href="mailto:conrad@rapportive.com">conrad@rapportive.com</a>.</p>
+
+        <p class="friendly">For technical details, see <a
+            href="javascript:window.open('https://test-cors.appspot.com#technical')">https://test-cors.appspot.com/#technical</a>.</p>
+    </body>
+</html>

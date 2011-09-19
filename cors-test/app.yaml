@@ -1,0 +1,13 @@
+application: cors-test
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+
+- url: /
+  static_files: index.html
+  upload: index.html
+
+- url: /test
+  script: cors_test.py

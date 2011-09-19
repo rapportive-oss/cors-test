@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Cors testing app</title>
+        <style>body { font-family: sans-serif; }</style>
+    </head>
+    <body>
+
+        <h1>Cors testing</h1>
+
+        <p><b>See <a href="https://test-cors.appspot.com/#technical">https://test-cors.appspot.com/</a> to run
+            the test in your browser.</b></p>
+
+        <p>Make cors requests to <code>https://cors-test.appspot.com/test</code>. They will respond
+        with <code>{"status":"ok"}</code>.</p>
+
+        <p>If you include an <code>Origin</code> header, it will be echoed in the
+        <code>Access-Control-Allow-Origin</code> response, otherwise <code>*</code> is used.</p>
+
+        <p>If you include any <code>Access-Control-Request-Headers</code>, they will be echoed in an
+        <code>Access-Control-Allow-Headers</code> response.</p>
+
+        <p>If you include any <code>Access-Control-Request-Method</code>, it will be echoed in an
+        <code>Access-Control-Allow-Method</code> response.</p>
+
+        <p>For testing purposes, we also always send: <code>Access-Control-Max-Age: 0</code>, and
+        <code>Set-Cookie: test=test</code>.
+
+        <hr>
+        <p>For more information about CORS see <a
+            href="https://developer.mozilla.org/en/HTTP_access_control">https://developer.mozilla.org/en/HTTP_access_control</a>
+        and <a href="http://enable-cors.org/">http://enable-cors.org/</a>.</p>
+
+        <p>Code at <a
+            href="https://github.com/rapportive-oss/cors-test">https://github.com/rapportive-oss/cors-test</a>, contact <a href="mailto:conrad@rapportive.com"/>conrad@rapportive.com</a></p>
+    </body>
+</html>
