@@ -20,13 +20,15 @@
                              .fail(function () {
                                  li.addClass("bad");
                                  li.text((technical ?  msg : 'failed') + ' ✗');
-                             });
+                             }),
 
-                    setTimeout(function () {
-                        if (!d.isResolved()) {
-                            li.text(technical ? "timed out" : "not tested :(");
-                        }
-                    }, 10000);
+                    t = setTimeout(function () {
+                                li.text(technical ? "timed out" : "not tested :(");
+                        }, 10000);
+
+                    d.always(function () {
+                        clearTimeout(t);
+                    });
             }
 
             jQuery(function () {
