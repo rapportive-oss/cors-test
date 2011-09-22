@@ -10,7 +10,9 @@
         <script>
             var technical = window.location.hash === "#technical";
 
-            function logged(msg, opts) {
+            function logged(n ,msg, opts) {
+
+                opts.url = opts.url + "?" + n;
                 var li = jQuery("<li>").text(technical ? msg : 'testing...').appendTo(jQuery(".results")).addClass("unknown"),
                     d = jQuery.ajax(opts)
                              .done(function () {
@@ -42,21 +44,21 @@
 
                 jQuery(".useragent").text(navigator.userAgent);
 
-                logged("Simple local ajax", "simple.json");
+                logged(1, "Simple local ajax", "simple.json");
 
-                logged("remote GET request", url);
+                logged(2, "remote GET request", url);
 
-                logged("remote POST request", {url: url, type: 'POST'});
+                logged(3, "remote POST request", {url: url, type: 'POST'});
 
-                logged("remote DELETE request", {url: url, type: 'DELETE'});
+                logged(4, "remote DELETE request", {url: url, type: 'DELETE'});
 
-                logged("remote request with Header", {url: url, headers: {'X-Test-Header': 'test'}});
+                logged(5, "remote request with Header", {url: url, headers: {'X-Test-Header': 'test'}});
 
-                logged("remote request with credentials", {url: url, xhrFields: {withCredentials: true}});
+                logged(6, "remote request with credentials", {url: url, xhrFields: {withCredentials: true}});
 
-                logged("with HTTP basic auth", {url: url, username: 'foo', password: 'bar', xhrFields: {withCredentials: true}});
+                logged(7, "with custom Accept header", {url: url, headers: {'Accept': 'Margerine'}, xhrFields: {withCredentials: true}});
 
-                logged("all features combined", {url: url, type: 'HEAD', headers: {'X-Test-Header': 'test'}, xhrFields: {withCredentials: true}});
+                logged(8, "all features combined", {url: url, type: 'HEAD', headers: {'X-Test-Header': 'test'}, xhrFields: {withCredentials: true}});
             });
         </script>
 
