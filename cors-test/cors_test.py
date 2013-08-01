@@ -19,6 +19,8 @@ class CORSEnabledHandler(webapp.RequestHandler):
 
         add_header("Access-Control-Allow-Credentials", "true")
 
+        add_header('Set-Cookie', 'test=test')
+
         add_header('Cache-Control', 'no-cache')
         add_header('Expires', 'Fri, 01 Jan 1990 00:00:00 GMT')
         self.response.headers['Content-Type'] = 'application/json'
